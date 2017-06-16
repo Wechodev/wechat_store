@@ -1,0 +1,51 @@
+<table class="table table-bordered center">
+    <thead class="bg_f3f3f3">
+    <tr>
+        <th class="center">ID</th>
+        <th class="center">电话</th>
+        <th class="center">地址</th>
+        <th class="center">内容</th>
+        <th class="center">qq</th>
+        <th class="center">点击量</th>
+        <th class="center">发布时间</th>
+        <th class="center">操作</th>
+    </tr>
+    </thead>
+    <tbody class="bg_fff">
+    <if condition="$information">
+        <foreach name="information" item="v">
+            <tr>
+                <td class="center">{$v.id}</td>
+                <td class="center">{$v.mobilephone}</td>
+                <td class="center">{$v.street}</td>
+                <td class="center">{$v[content]|mb_substr=0,30,'utf-8'}...</td>
+                <td class="center">{$v.qq}</td>
+                <td class="center">{$v.hits}</td>
+                <td class="center">{$v[publish_time]|date='Y-m-d H:i',###}</td>
+                <td class="center">
+                    <a  class="col_919191" href="__APP__/Index/look/id/{$v.id}">[查看信息]</a> |
+                    <a  class="col_919191" href="__APP__/Index/comment/id/{$v.id}">[查看评论]</a> |
+                    <a  class="col_919191" href="javascript:void (0);" onclick="del_info({$v[id]})">[删除]</a>
+                </td>
+            </tr>
+        </foreach>
+        <else/>
+        <tr>
+            <td colspan="7">未找到相关结果</td>
+        </tr>
+    </if>
+    </tbody>
+</table>
+
+<!--分页-->
+<div class="text-r pagelsit col_464646 mt100">
+    {$pagestr}
+</div>
+
+<script>
+    function del_info(id) {
+        if(confirm('您是否要删除此条记录')){
+            window.location.href = '__APP__/Index/del/id/'+id;
+        }
+    }
+</script>

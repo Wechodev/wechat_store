@@ -1,0 +1,44 @@
+<table class="table table-bordered center">
+    <thead class="bg_f3f3f3">
+    <tr>
+        <th class="center">ID</th>
+        <th class="center">广告预览</th>
+        <th class="center">添加时间时间</th>
+        <th class="center">操作</th>
+    </tr>
+    </thead>
+    <tbody class="bg_fff">
+    <if condition="$advert">
+        <foreach name="advert" item="v">
+            <tr>
+                <td class="center">{$v.id}</td>
+                <td class="center">
+                    <a href="__ROOT__/uploads/{$v.advert_name}"><img src="__ROOT__/uploads/{$v.advert_name}" style="width:100px;height:100px;"></a>
+                </td>
+                <td class="center">{$v[addtime]|date='Y-m-d H:i',###}</td>
+                <td class="center">
+                    <a  class="col_919191" href="__APP__/Advert/advert_edit/id/{$v.id}">[编辑]</a>
+                    <a  class="col_919191" href="javascript:void (0);" onclick="del_info({$v[id]})">[删除]</a>
+                </td>
+            </tr>
+        </foreach>
+        <else/>
+        <tr>
+            <td colspan="5">未找到相关结果</td>
+        </tr>
+    </if>
+    </tbody>
+</table>
+
+<!--分页-->
+<div class="text-r pagelsit col_464646 mt100">
+    {$pagestr}
+</div>
+
+<script>
+    function del_info(id) {
+        if(confirm('您是否要删除此条记录')){
+            window.location.href = '__APP__/Advert/advert_del/id/'+id;
+        }
+    }
+</script>

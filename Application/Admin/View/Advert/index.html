@@ -1,0 +1,47 @@
+<include file="WebApp/Admin/View/head.html"/>
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div class="row">
+            <div class="col-lg-12 m12">
+                <a href="__APP__/Advert/add"><span style="padding: 10px 15px;background: #61a642;color: #fff;border-radius: 6px;">添加广告</span></a>
+            </div>
+            <div class="col-lg-12 mt20" id="drivers">
+
+                <script>
+                    $('.nc').mouseover(function(){
+                        $(this).next().show();
+                    });
+                    $('.nc').next().mouseover(function(){
+                        $(this).show();
+                    });
+                    $('.nc').mouseleave(function(){
+                        $(this).next().hide();
+                    });
+                    $('.nc').next().mouseleave(function(){
+                        $(this).hide();
+                    });
+                </script>
+
+            </div>
+        </div>
+        <!--state overview end-->
+        <!-- page end-->
+        <script type="text/javascript">
+            page_js(1);
+            function page_js(page) {
+
+                var param = {page:page};
+                //console.log(param);
+                $.post('__APP__/Advert/ajax_advert',param,function (data) {
+                    $("#drivers").html(data.html);
+                });
+            }
+        </script>
+
+    </section>
+</section>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

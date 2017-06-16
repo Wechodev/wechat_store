@@ -1,0 +1,60 @@
+<include file="WebApp/Admin/View/head.html"/>
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <!-- page start-->
+            <!--state overview start-->
+            <div style="font-size: 16px;">评论</div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                </div>
+                <div class="col-lg-12 mt20" id="drivers">
+
+                    <table class="table table-bordered center">
+                        <thead class="bg_f3f3f3">
+                        <tr>
+                            <th class="center">ID</th>
+                            <th class="center">评论内容</th>
+                            <th class="center">评论时间</th>
+                            <th class="center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg_fff">
+                        <if condition="$comment">
+                            <foreach name="comment" item="v">
+                                <tr>
+                                    <td class="center">{$v.id}</td>
+                                    <td class="center">{$v.comment}</td>
+                                    <td class="center">{$v[addtime]|date='Y-m-d H:i',###}</td>
+                                    <td class="center">
+                                        <a  class="col_919191" href="javascript:void (0);" onclick="del_info({$v[id]})">[删除]</a>
+                                    </td>
+                                </tr>
+                            </foreach>
+                            <else/>
+                            <tr>
+                                <td colspan="4">未找到相关结果</td>
+                            </tr>
+                        </if>
+                        </tbody>
+                    </table>
+
+
+                    <script>
+                        function del_info(id) {
+                            if(confirm('您是否要删除此条记录')){
+                                window.location.href = '__APP__/Index/comment_del/id/'+id;
+                            }
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <!--state overview end-->
+            <!-- page end-->
+
+        </section>
+    </section>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

@@ -1,0 +1,149 @@
+<include file="WebApp/Admin/View/head.html"/>
+<script type="text/javascript" src="__ADMINRES__/js/exif.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/binaryajax.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/localResizeIMG2.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/mobileBUGFix.mini.js"></script>
+
+<style type="text/css">
+
+    #imglist li img.wh60 {
+        margin: 0 auto;
+        display: block;
+        width: 90px;
+        height: 60px;
+    }
+    .upload_area .post_imglist li {position: relative;float: left;padding: 10px 10px 5px 0;line-height: 38px;}
+    .upload_area .post_imglist li .del {position: absolute;right: 5px;top: 0px;background: url(__ADMINRES__/img/icon_del.png) no-repeat 15px 0;background-size: 23px auto;width: 40px;height: 40px;display: inline-block; }
+    .upload_area .post_imglist li .p_img img {padding: 2px;border: 1px solid #DDD;height: 54px;width: 54px; }
+    .upload_area .post_imglist li .pic_time {display: inline-block;width: 60px;height: 60px;position: relative; }
+    .upload_area .post_imglist li .pic_time em {display: inline-block;width: 100%;height: 25%;line-height: 15px;font-size: 12px;color: #fff;background-color: #F1484A;position: absolute;top: 22px;left: 0; }
+    .upload_area .upload_btn {background: url(__ADMINRES__/img/upload_btn.png) center no-repeat;background-size: 60px auto;float: left;overflow: hidden;position: relative;width: 60px;height: 60px; }
+    .upload_area .upload_btn input {opacity: 0;position: absolute;left: 0;top: 0;z-index: 10;overflow: hidden;height: 60px;width: 90px; }
+    #imglist li{list-style-type:none; }
+</style>
+
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div class="row">
+            <div class="col-lg-12 mt20" id="passenger">
+
+                <table class="table table-bordered center">
+                    <form action="__APP__/Advert/do_advert_edit/id/{$advert.id}" method="post" id="form">
+                        <tr>
+                            <td colspan="2"><span>建议：上传图片大小为1920*1080</span></td>
+                        </tr>
+                        <tr>
+                            <th class="center">广告图</th>
+                            <td class="center">
+                                <div class="form-group">
+                                    <div class="col-lg-10">
+                                        <!-- 引入上传图片需要js 和 style -->
+                                        <div class="upload_area clearfix">
+                                            <ul id="imglist" class="post_imglist">
+                                                <li id="curr_advert">
+                                                    <span class="del1"></span>
+                                                    <img src="__ROOT__/uploads/{$advert.advert_name}" width="90" height="60">
+                                                </li>
+                                            </ul>
+                                            <div class="upload_btn">
+                                                <input type="hidden" name="advert_name" id="advert_name">
+                                                <input type="file" id="upload_image" value="图片上传" capture="camera">
+                                            </div>
+                                        </div>
+                                        <!-- 上传图片的js 函数 -->
+
+                                        <script type="text/javascript">
+                                            (function () {
+                                                var viewImg = $("#imglist");
+                                                var imgurl = '';
+                                                var imgcount = 0;
+                                                $('#upload_image').localResizeIMG({
+                                                    /*width: 480,
+                                                    quality: 0.8,*/
+                                                    success: function (result) {
+                                                        var status = true;
+                                                        $('#curr_advert').remove();
+                                                        if (result.height > 1600) {
+                                                            status = false;
+                                                            alert("照片最大高度不超过1600像素");
+                                                        }
+                                                        if (viewImg.find("li").length > 0) {
+                                                            status = false;
+                                                            alert("最多上传1张照片");
+                                                        }
+                                                        if (status) {
+                                                            viewImg.append('<li ><span class="pic_time"><span class="p_img"></span><em>50%</em></span></li>');
+                                                            viewImg.find("li:last-child").html('<span class="del"></span><img class="wh60" src="' + result.base64 + '" width="90" height="60"/><input type="hidden" id="file'
+                                                                    + imgcount
+                                                                    + '" name="advert['
+                                                                    + imgcount
+                                                                    + ']" value="'
+                                                                    + result.clearBase64 + '">');
+
+                                                            $('#advert_name').val(result.clearBase64);
+
+                                                            $(".del").on("click",function(){
+                                                                $(this).parent('li').remove();
+                                                                $("#upload_image").show();
+                                                            });
+                                                            imgcount++;
+                                                        }
+                                                    }
+                                                });
+                                            })();
+                                            $(function($){
+                                                $("#signupok").submit(function(){
+                                                    var length = $("#imglist").find("li").length;
+                                                    if(length == ''|| length == null  || length == undefined || length == 'undefined' || length < 1 ){alert('请上传1张以上图片');return false;}
+
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="center">广告的链接</th>
+                            <td class="center"><input style="float: left;" type="text" name="advert_url" value="{$advert.advert_url}"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2"><input type="button" value="保存" onclick="submit_save()"></td>
+                        </tr>
+
+                    </form>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </section>
+</section>
+
+<script type="text/javascript">
+
+    function submit_save() {
+        var viewImg = $('#imglist');
+
+        var len = viewImg.find("li").length;
+        if(len==0){
+            alert('请选择图片');
+            return;
+        }
+        form.submit();
+
+    }
+
+
+
+</script>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

@@ -1,0 +1,304 @@
+<include file="WebApp/Admin/View/head.html"/>
+<script type="text/javascript" src="__ADMINRES__/js/exif.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/binaryajax.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/localResizeIMG2.js"></script>
+<script type="text/javascript" src="__ADMINRES__/js/mobileBUGFix.mini.js"></script>
+
+<style type="text/css">
+
+    #imglist li img.wh60 {
+        margin: 0 auto;
+        display: block;
+        width: 90px;
+        height: 60px;
+    }
+    .upload_area .post_imglist li {position: relative;float: left;padding: 10px 10px 5px 0;line-height: 38px;}
+    .upload_area .post_imglist li .del {position: absolute;right: 5px;top: 0px;background: url(__ADMINRES__/img/icon_del.png) no-repeat 15px 0;background-size: 23px auto;width: 40px;height: 40px;display: inline-block; }
+    .upload_area .post_imglist li .p_img img {padding: 2px;border: 1px solid #DDD;height: 54px;width: 54px; }
+    .upload_area .post_imglist li .pic_time {display: inline-block;width: 60px;height: 60px;position: relative; }
+    .upload_area .post_imglist li .pic_time em {display: inline-block;width: 100%;height: 25%;line-height: 15px;font-size: 12px;color: #fff;background-color: #F1484A;position: absolute;top: 22px;left: 0; }
+    .upload_area .upload_btn {background: url(__ADMINRES__/img/upload_btn.png) center no-repeat;background-size: 60px auto;float: left;overflow: hidden;position: relative;width: 60px;height: 60px; }
+    .upload_area .upload_btn input {opacity: 0;position: absolute;left: 0;top: 0;z-index: 10;overflow: hidden;height: 60px;width: 90px; }
+    #imglist li{list-style-type:none; }
+</style>
+
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div class="row">
+            <div class="col-lg-12 mt20" id="passenger">
+
+                <table class="table table-bordered center">
+                    <form action="__APP__/Advert/do_top" method="post" id="form">
+                        <tr>
+                            <td colspan="2"><span>建议：上传图片大小为1920*1080</span></td>
+                        </tr>
+                        <tr>
+                            <th class="center">第一条广告图</th>
+                            <td class="center">
+                                <div class="form-group">
+                                    <div class="col-lg-10">
+                                        <!-- 引入上传图片需要js 和 style -->
+                                        <div class="upload_area clearfix">
+                                            <ul id="imglist" class="post_imglist">
+                                                <li>
+                                                    <span class="del1"></span>
+                                                    <a href="__ROOT__/uploads/{$coverimg.cover_img1}"><img class="wh60" src="__ROOT__/uploads/{$coverimg.cover_img1}" width="90" height="60"/></a>
+                                                </li>
+                                            </ul>
+                                            <div class="upload_btn">
+                                                <input type="hidden" name="advert_name" id="advert_name">
+                                                <input type="file" id="upload_image" value="图片上传" capture="camera">
+                                            </div>
+                                        </div>
+                                        <!-- 上传图片的js 函数 -->
+
+                                        <script type="text/javascript">
+                                            (function () {
+                                                var viewImg = $("#imglist");
+                                                var imgurl = '';
+                                                var imgcount = 0;
+                                                $('#upload_image').localResizeIMG({
+                                                    /*width: 480,
+                                                     quality: 0.8,*/
+                                                    success: function (result) {
+                                                        var status = true;
+                                                        viewImg.find('li').remove();
+                                                        if (result.height > 1600) {
+                                                            status = false;
+                                                            alert("照片最大高度不超过1600像素");
+                                                        }
+                                                        if (viewImg.find("li").length > 0) {
+                                                            status = false;
+                                                            alert("最多上传1张照片");
+                                                        }
+                                                        if (status) {
+                                                            viewImg.append('<li ><span class="pic_time"><span class="p_img"></span><em>50%</em></span></li>');
+                                                            viewImg.find("li:last-child").html('<span class="del"></span><img class="wh60" src="' + result.base64 + '" width="90" height="60"/><input type="hidden" id="file'
+                                                                    + imgcount
+                                                                    + '" name="advert['
+                                                                    + imgcount
+                                                                    + ']" value="'
+                                                                    + result.clearBase64 + '">');
+
+                                                            $('#advert_name').val(result.clearBase64);
+
+                                                            $(".del").on("click",function(){
+                                                                $(this).parent('li').remove();
+                                                                $("#upload_image").show();
+                                                                $('#advert_name').val('');
+                                                            });
+                                                            imgcount++;
+                                                        }
+                                                    }
+                                                });
+                                            })();
+                                            $(function($){
+                                                $("#signupok").submit(function(){
+                                                    var length = $("#imglist").find("li").length;
+                                                    if(length == ''|| length == null  || length == undefined || length == 'undefined' || length < 1 ){alert('请上传1张以上图片');return false;}
+
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div style="width:100%;float: left">链接地址：<input type="text" name="img_url" value="{$coverimg.img_url1}" placeholder="http://www.baidu.com"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="center">第二条广告图</th>
+                            <td class="center">
+                                <div class="form-group">
+                                    <div class="col-lg-10">
+                                        <!-- 引入上传图片需要js 和 style -->
+                                        <div class="upload_area clearfix">
+                                            <ul id="imglist1" class="post_imglist">
+                                                <li>
+                                                    <span class="del2"></span>
+                                                    <a href="__ROOT__/uploads/{$coverimg.cover_img2}"><img class="wh60" src="__ROOT__/uploads/{$coverimg.cover_img2}" width="90" height="60"/></a>
+                                                </li>
+                                            </ul>
+                                            <div class="upload_btn">
+                                                <input type="hidden" name="advert_name1" id="advert_name1">
+                                                <input type="file" id="upload_image1" value="图片上传" capture="camera">
+                                            </div>
+                                        </div>
+                                        <!-- 上传图片的js 函数 -->
+
+                                        <script type="text/javascript">
+                                            (function () {
+                                                var viewImg = $("#imglist1");
+                                                var imgurl = '';
+                                                var imgcount = 0;
+                                                $('#upload_image1').localResizeIMG({
+                                                    /*width: 480,
+                                                     quality: 0.8,*/
+                                                    success: function (result) {
+                                                        var status = true;
+                                                        viewImg.find('li').remove();
+                                                        if (result.height > 1600) {
+                                                            status = false;
+                                                            alert("照片最大高度不超过1600像素");
+                                                        }
+                                                        if (viewImg.find("li").length > 0) {
+                                                            status = false;
+                                                            alert("最多上传1张照片");
+                                                        }
+                                                        if (status) {
+                                                            viewImg.append('<li ><span class="pic_time"><span class="p_img"></span><em>50%</em></span></li>');
+                                                            viewImg.find("li:last-child").html('<span class="del"></span><img class="wh60" src="' + result.base64 + '" width="90" height="60"/><input type="hidden" id="file'
+                                                                    + imgcount
+                                                                    + '" name="advert['
+                                                                    + imgcount
+                                                                    + ']" value="'
+                                                                    + result.clearBase64 + '">');
+
+                                                            $('#advert_name1').val(result.clearBase64);
+
+                                                            $(".del").on("click",function(){
+                                                                $(this).parent('li').remove();
+                                                                $("#upload_image1").show();
+                                                                $('#advert_name1').val('');
+                                                            });
+                                                            imgcount++;
+                                                        }
+                                                    }
+                                                });
+                                            })();
+                                            $(function($){
+                                                $("#signupok1").submit(function(){
+                                                    var length = $("#imglist1").find("li").length;
+                                                    if(length == ''|| length == null  || length == undefined || length == 'undefined' || length < 1 ){alert('请上传1张以上图片');return false;}
+
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div style="width:100%;float: left">链接地址：<input type="text" name="img_url1" value="{$coverimg.img_url2}"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="center">第三条广告图</th>
+                            <td class="center">
+                                <div class="form-group">
+                                    <div class="col-lg-10">
+                                        <!-- 引入上传图片需要js 和 style -->
+                                        <div class="upload_area clearfix">
+                                            <ul id="imglist2" class="post_imglist">
+                                                <li>
+                                                    <span class="del3"></span>
+                                                    <a href="__ROOT__/uploads/{$coverimg.cover_img3}"><img class="wh60" src="__ROOT__/uploads/{$coverimg.cover_img3}" width="90" height="60"/></a>
+                                                </li>
+                                            </ul>
+                                            <div class="upload_btn">
+                                                <input type="hidden" name="advert_name2" id="advert_name2">
+                                                <input type="file" id="upload_image2" value="图片上传" capture="camera">
+                                            </div>
+                                        </div>
+                                        <!-- 上传图片的js 函数 -->
+
+                                        <script type="text/javascript">
+                                            (function () {
+                                                var viewImg = $("#imglist2");
+                                                var imgurl = '';
+                                                var imgcount = 0;
+                                                $('#upload_image2').localResizeIMG({
+                                                    /*width: 480,
+                                                     quality: 0.8,*/
+                                                    success: function (result) {
+                                                        var status = true;
+                                                        viewImg.find('li').remove();
+                                                        if (result.height > 1600) {
+                                                            status = false;
+                                                            alert("照片最大高度不超过1600像素");
+                                                        }
+                                                        if (viewImg.find("li").length > 0) {
+                                                            status = false;
+                                                            alert("最多上传1张照片");
+                                                        }
+                                                        if (status) {
+                                                            viewImg.append('<li ><span class="pic_time"><span class="p_img"></span><em>50%</em></span></li>');
+                                                            viewImg.find("li:last-child").html('<span class="del"></span><img class="wh60" src="' + result.base64 + '" width="90" height="60"/><input type="hidden" id="file'
+                                                                    + imgcount
+                                                                    + '" name="advert['
+                                                                    + imgcount
+                                                                    + ']" value="'
+                                                                    + result.clearBase64 + '">');
+
+                                                            $('#advert_name2').val(result.clearBase64);
+
+                                                            $(".del").on("click",function(){
+                                                                $(this).parent('li').remove();
+                                                                $("#upload_image2").show();
+                                                                $('#advert_name2').val('');
+                                                            });
+                                                            imgcount++;
+                                                        }
+                                                    }
+                                                });
+                                            })();
+                                            $(function($){
+                                                $("#signupok2").submit(function(){
+                                                    var length = $("#imglist2").find("li").length;
+                                                    if(length == ''|| length == null  || length == undefined || length == 'undefined' || length < 1 ){alert('请上传1张以上图片');return false;}
+
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div style="width:100%;float: left">链接地址：<input type="text" name="img_url2" value="{$coverimg.img_url3}"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td colspan="2"><input type="button" value="保存" onclick="submit_save()"></td>
+                        </tr>
+
+                    </form>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </section>
+</section>
+
+<script type="text/javascript">
+
+    function submit_save() {
+        var viewImg = $('#imglist');
+
+        var len1 = viewImg.find("li").length;
+        var len2 = $('#imglist1').find('li').length;
+        var len3 = $('#imglist2').find('li').length;
+        var img_url1 = $('input[name="img_url"]').val();
+        var img_url2 = $('input[name="img_url1"]').val();
+        var img_url3 = $('input[name="img_url2"]').val();
+
+        if(len1==0 || len2 ==0 || len3 == 0){
+            alert('图片选择不全');
+            return;
+        }else if(img_url1=='' || img_url2=='' || img_url3==''){
+            alert('链接地址不能为空');
+            return;
+        }
+        form.submit();
+
+    }
+
+
+
+</script>
+
+
+<include file="WebApp/Admin/View/foot.html"/>l>

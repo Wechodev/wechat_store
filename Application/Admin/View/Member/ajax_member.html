@@ -1,0 +1,78 @@
+<table class="table table-bordered center">
+    <thead class="bg_f3f3f3">
+    <tr>
+        <th class="center">ID</th>
+        <th class="center">用户名</th>
+        <th class="center">登录ip</th>
+        <th class="center">登录时间</th>
+        <th class="center">注册时间</th>
+        <th class="center">操作</th>
+    </tr>
+    </thead>
+    <tbody class="bg_fff">
+    <if condition="$members">
+        <foreach name="members" item="v">
+            <tr>
+                <td class="center">{$v.id}</td>
+                <td class="center">{$v.username}</td>
+                <td class="center">{$v.login_ip}</td>
+                <td class="center">{$v[logintime]|date='Y-m-d H:i',###}</td>
+                <td class="center">{$v[addtime]|date='Y-m-d H:i',###}</td>
+                <td class="center">
+                    <if condition="$v['is_enabled'] eq 1">
+                        <a  class="col_919191" href="javascript:void (0);" onclick="up_info({$v[id]},0)">[禁用]</a>
+                        <else/>
+                        <a  class="col_919191" href="javascript:void (0);" onclick="up_info({$v[id]},1)">[启用]</a>
+                    </if>
+
+                    <a  class="col_919191" href="javascript:void (0);" onclick="del_info({$v[id]})">[删除]</a>
+                </td>
+            </tr>
+        </foreach>
+        <else/>
+        <tr>
+            <td colspan="6">未找到相关结果</td>
+        </tr>
+    </if>
+    </tbody>
+</table>
+
+<!--分页-->
+<div class="text-r pagelsit col_464646 mt100">
+    {$pagestr}
+</div>
+
+<script>
+
+    var page = '{$page}';
+
+    function del_info(id) {
+        if(confirm('您是否要删除此条记录')){
+            window.location.href = '__APP__/Member/member_del/id/'+id;
+        }
+    }
+
+    function up_info(id,v) {
+        $.post('__APP__/Member/enabled',{id:id,is_enabled:v},function (back) {
+            if(back.error == 1){
+                alert('更新失败！');
+                return;
+            }else{
+                page_js(page);
+            }
+        });
+    }
+
+
+    function page_js(page) {
+
+        var username = $('#username').val();
+        var start_time = $('#start_time').val();
+        var end_time = $('#end_time').val();
+        var param = {username:username,start_time:start_time,end_time:end_time,page:page};
+        //console.log(param);
+        $.post('__APP__/Member/ajax_member',param,function (data) {
+            $("#drivers").html(data.html);
+        });
+    }
+</script>

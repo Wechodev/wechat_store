@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="__ADMINRES__/img/favicon.png">
+    <title>登录——后台管理系统</title>
+    <link href="__ADMINRES__/css/mycss.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="__ADMINRES__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__ADMINRES__/css/bootstrap-reset.css" rel="stylesheet">
+    <script type="text/javascript" src="__ADMINRES__/js/jquery.min.js"></script>
+    <script>
+        //登录-回车事件
+        $(function(){
+            $('#pass').bind('keypress',function(event){
+                if(event.keyCode == "13")
+                {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <!--top-->
+    <div class="login_top">
+
+    </div>
+    <!--登录-->
+    <div class="border_2_919191 mar_auto bord_ra_12 w960 " style="margin-top:160px;">
+        <div class="center mt70 mb100">
+            <form action="__APP__/Login/login" method="post" name="form" id="form">
+            <span class="f36  col_464646 lh70">神灯管理系统</span>
+            <div class="mt40"><span class="f18 lh40 col_464646">账号&nbsp;&nbsp;</span><input class="h40 w228 lh40" name="username" type="text"/></div>
+            <div class="mt15"><span  class="f18 lh40 col_464646">密码&nbsp;&nbsp;</span><input  class="h40 w228 lh40" id="pass" name="password" type="password"/></div>
+            <div class="mt30"><input class="line-none bg_ff464a col_fff f18  h40 w228 lh40 ml48" type="submit" value="登陆"/></div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

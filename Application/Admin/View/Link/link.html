@@ -1,0 +1,58 @@
+<include file="WebApp/Admin/View/head.html"/>
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div style="font-size: 18px;color: #333;font-weight: 600;">友情链接</div>
+        <div style="line-height: 35px;font-size: 16px;"><a style="padding: 5px 8px;border-radius:5px;background: #6dbb4a;color: #fff;" href="__APP__/Link/link_add">添加友情链接</a> </div>
+        <div class="row">
+            <div class="col-lg-12 mt20" id="passenger">
+
+                <table class="table table-bordered center">
+                    <thead class="bg_f3f3f3">
+                    <tr>
+                        <th class="center">ID</th>
+                        <th class="center">标题</th>
+                        <th class="center">链接地址</th>
+                        <th class="center">添加时间</th>
+                        <th class="center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg_fff">
+                    <if condition="$link">
+                        <foreach name="link" item="v">
+                            <tr>
+                                <td class="center">{$v.id}</td>
+                                <td class="center">{$v.link_title}</td>
+                                <td class="center">{$v.link_url}</td>
+                                <td class="center">{$v[addtime]|date='Y-m-d H:i',###}</td>
+                                <td class="center">
+                                    <a  class="col_919191" href="__APP__/Link/link_edit/id/{$v.id}">[编辑]</a>
+                                    <a  class="col_919191" href="javascript:void (0);" onclick="del_info({$v[id]})">[删除]</a>
+                                </td>
+                            </tr>
+                        </foreach>
+                        <else/>
+                        <tr>
+                            <td colspan="5">未找到相关结果</td>
+                        </tr>
+                    </if>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function del_info(id) {
+                if(confirm('您是否要删除此友情链接')){
+                    window.location.href = '__APP__/Link/link_del/id/'+id;
+                }
+            }
+        </script>
+
+    </section>
+</section>
+
+<include file="WebApp/Admin/View/foot.html"/>

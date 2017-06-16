@@ -1,0 +1,79 @@
+<include file="WebApp/Admin/View/head.html"/>
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div style="font-size: 18px;color: #333;font-weight: 600;">联系我们</div>
+        <div class="row">
+            <div class="col-lg-12 mt20" id="passenger">
+
+                <table class="table table-bordered center">
+                    <form action="__APP__/Link/do_contact/id/{$parameter.id}" method="post" id="form">
+                        <tr>
+                            <th class="center">地址</th>
+                            <td class="center">
+                                <input type="text" id="address" name="address" value="{$parameter.address}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="center">电话</th>
+                            <td class="center">
+                                <input type="text" id="tel" name="tel" value="{$parameter.tel}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="center">qq</th>
+                            <td class="center"><input type="text" id="qq" name="qq" value="{$parameter.qq}"></td>
+                        </tr>
+
+                        <tr>
+                            <th class="center">微信</th>
+                            <td class="center"><input type="text" id="wx" name="wx" value="{$parameter.wx}"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2"><input type="button" value="保存" onclick="submit_save()"></td>
+                        </tr>
+
+                    </form>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </section>
+</section>
+
+<script type="text/javascript">
+
+    function submit_save() {
+        var address = $('#address').val();
+        var tel = $('#tel').val();
+        var qq = $('#qq').val();
+        var preg = /^1[34578]\d{9}$/;
+
+        //console.log(content+'--'+mobilephone+'--'+qq+'--'+province+'--'+city+'--'+county+'--');
+        if(address == ''){
+            alert('地址不能为空');
+            return;
+        }else if(tel == ''){
+            alert('电话不能为空');
+            return;
+        }
+        else if(qq != '' && isNaN(qq)){
+            alert('qq为数字');
+            return;
+        }
+        form.submit();
+
+    }
+
+
+
+</script>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

@@ -1,0 +1,67 @@
+<include file="WebApp/Admin/View/head.html"/>
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div style="font-size: 18px;color: #333;font-weight: 600;">联系我们</div>
+        <div class="row">
+            <div class="col-lg-12 mt20" id="passenger">
+
+                <table class="table table-bordered center">
+                    <form action="__APP__/Link/do_link_add" method="post" id="form">
+                        <tr>
+                            <td colspan="2"><span>温馨提示：链接地址请以http://开头（例如：http://www.baidu.com）</span></td>
+                        </tr>
+                        <tr>
+                            <th class="center">标题</th>
+                            <td class="center">
+                                <input type="text" id="link_title" name="link_title" size="50">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="center">链接地址</th>
+                            <td class="center">
+                                <input type="text" id="link_url" name="link_url" size="50">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2"><input type="button" value="保存" onclick="submit_save()"></td>
+                        </tr>
+
+                    </form>
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </section>
+</section>
+
+<script type="text/javascript">
+
+    function submit_save() {
+        var link_title = $('#link_title').val();
+        var link_url = $('#link_url').val();
+
+        //console.log(content+'--'+mobilephone+'--'+qq+'--'+province+'--'+city+'--'+county+'--');
+        if(link_title == ''){
+            alert('地址不能为空');
+            return;
+        }else if(link_url == ''){
+            alert('电话不能为空');
+            return;
+        }
+        form.submit();
+
+    }
+
+
+
+</script>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

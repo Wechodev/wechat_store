@@ -1,0 +1,51 @@
+<include file="WebApp/Admin/View/head.html"/>
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="f18 col_464646 bg_fff lh50 border_1_919191 bord_ra_4 pl12">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <span  class="f14 lh30 col_464646">用户名：</span>
+                            <input class="f14 w115 h30 lh30"  id="username" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <span  class="f14 lh30 col_464646">注册时间：</span>
+                            <input size="16" type="text" value="" id="start_time" readonly class="w115 f14 h30 lh30 form_datetime">-
+                            <input size="16" type="text" value="" id="end_time" readonly class="w115 f14 h30 lh30 form_datetime">
+
+                        </div>
+                        <button type="button" class="btn bg_f14d1a col_fff" onclick="page_js(1)">搜索</button>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-lg-12 mt20" id="drivers">
+
+            </div>
+        </div>
+        <!--state overview end-->
+        <!-- page end-->
+        <script type="text/javascript">
+            page_js(1);
+            function page_js(page) {
+
+                var username = $('#username').val();
+                var start_time = $('#start_time').val();
+                var end_time = $('#end_time').val();
+                var param = {username:username,start_time:start_time,end_time:end_time,page:page};
+                //console.log(param);
+                $.post('__APP__/Member/ajax_member',param,function (data) {
+                    $("#drivers").html(data.html);
+                });
+            }
+        </script>
+
+    </section>
+</section>
+
+
+<include file="WebApp/Admin/View/foot.html"/>

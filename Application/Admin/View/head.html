@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="__ADMINRES__/img/favicon.png">
+    <title>后台管理系统</title>
+    <link href="__ADMINRES__/css/mycss.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="__ADMINRES__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__ADMINRES__/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="__ADMINRES__/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!--external css-->
+    <!--<link href="//cdn.bootcss.com/font-awesome/4.0.3/__ADMINRES__/css/font-awesome.min.css" rel="stylesheet">-->
+    <!--right slidebar-->
+    <link href="__ADMINRES__/css/slidebars.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="__ADMINRES__/css/style.css" rel="stylesheet">
+    <link href="__ADMINRES__/css/style-responsive.css" rel="stylesheet" />
+    <link href="__ADMINRES__/css/css.css" rel="stylesheet">
+
+    <link href="__ADMINRES__/css/jquery.easy-pie-chart.css" rel="stylesheet" />
+    <link href="__ADMINRES__/css/owl.carousel.css" rel="stylesheet">
+
+    <style type="text/css">
+        .sa{ cursor: pointer; }
+    </style>
+    <script src="__ADMINRES__/js/jquery.js"></script>
+    <script src="__ADMINRES__/js/jquery.min.js"></script>
+    <script src="__ADMINRES__/js/jquery-2.1.4.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMINRES__/js/html5shiv.js"></script>
+    <script src="__ADMINRES__/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        x{color:#aeb2b7;}
+        .pagelsit a{
+            height:30px;
+            margin-left:3px;
+        }
+        .pagelsit .txtpage{
+            width:50px;
+            height:32px;
+            margin-left:5px;
+            border: 1px #ccc solid;
+        }
+        .pagelsit .txtbtn{
+            height:32px;
+            margin-left:5px;
+            border: 1px #ccc solid;
+        }
+        .pagelsit .current{
+            display: inline-block;
+            width: 30px;
+            background: #294775;
+            line-height: 32px;
+            height: 32px;
+            text-align: center;
+            color: #fff;
+            border: 1px #ccc solid;
+        }
+
+        .header{
+            background: -webkit-linear-gradient(135deg,#00b1b3,#1d5086);
+            background: linear-gradient(270deg,#00b1b3,#1d5086);
+        }
+    </style>
+</head>
+<body>
+
+<secition id="container">
+    <!--header start-->
+    <header class="bg_fff header  " >
+        <div class="sidebar-toggle-box" style="margin-top:10px;">
+            <!--<img class="left" src="__ADMINRES__/img/sfc_logo.png" alt=""/>-->
+            <span class="f24 left ml20 lh40 col_2a3542" style="color: #fff;">神灯网管理系统V1.0</span>
+            <span class="f14 left ml20 lh40 col_808080" style="color: #fff;">欢迎您登陆神灯网管理系统</span>
+        </div>
+        <div class="right mt20">
+            <i>
+                <a href="__APP__/Link/clear_buff"><b class="col_464646 fwd"  style="color: #fff;">清除缓冲 </b></a>&nbsp;&nbsp;
+                <i class="col_464646 fwd"  style="color: #fff;">{$userinfo.username} </i>&nbsp;
+                <x>| [</x> <a class="col_464646 fwd"  href="__APP__/Login/logout" style="color: #fff;">退出</a> <x>]
+                | [ </x><a class="col_464646 fwd"  href="__APP__/Index/index" style="color: #fff;">站点首页</a> <x>]</x>
+            </i>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <li  class="sub-menu">
+                    <a href="javascript:void(0);" class="{$active == 'Index' ? 'active' : ''}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>信息管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="sa" href="__APP__/Index/index">信息列表</a></li>
+                        <li><a class="sa" href="__APP__/Index/add">添加信息</a></li>
+                    </ul>
+                </li>
+
+                <!--<li  class="sub-menu">
+                    <a href="__APP__/Member/index" class="{$active == 'member' ? 'active' : ''}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>会员列表</span>
+                    </a>
+                </li>-->
+
+                <li  class="sub-menu">
+                    <a href="__APP__/Index/message" class="{$active == 'message' ? 'active' : ''}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>留言建议</span>
+                    </a>
+                </li>
+
+                <li  class="sub-menu">
+                    <a href="javascript:;" class="{$active == 'advert' ? 'active' : ''}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>广告图</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a class="sa" href="__APP__/Advert/top">头部广告图</a></li>
+                        <li><a class="sa" href="__APP__/Advert/index">底部广告图</a></li>
+                    </ul>
+                </li>
+
+                <li  class="sub-menu">
+                    <a href="javascript:;" class="{$active == 'link' ? 'active' : ''}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>网站参数</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a class="sa" href="__APP__/Link/index">协议</a></li>
+                        <li><a class="sa" href="__APP__/Link/link">友情链接</a></li>
+                        <li><a class="sa" href="__APP__/Link/contact">联系我们</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end -->
+        </div>
+    </aside>    <!--sidebar end-->
+
+</secition>

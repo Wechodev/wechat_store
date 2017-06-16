@@ -1,0 +1,32 @@
+<include file="WebApp/Admin/View/head.html"/>
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <!--state overview start-->
+        <div class="row">
+            <div class="col-lg-12">
+
+            </div>
+            <div class="col-lg-12 mt20" id="drivers">
+
+            </div>
+        </div>
+        <!--state overview end-->
+        <!-- page end-->
+        <script type="text/javascript">
+            page_js(1);
+            function page_js(page) {
+
+                var param = {page:page};
+                //console.log(param);
+                $.post('__APP__/Index/ajax_message',param,function (data) {
+                    $("#drivers").html(data.html);
+                });
+            }
+        </script>
+
+    </section>
+</section>
+
+
+<include file="WebApp/Admin/View/foot.html"/>
