@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.53)
-# Date: 2017-06-15 18:29:11
+# Date: 2017-06-22 19:21:40
 # Generator: MySQL-Front 6.0  (Build 1.116)
 
 
@@ -57,11 +57,30 @@ CREATE TABLE `my_address` (
   `province_id` int(11) DEFAULT NULL,
   `specific_place` varchar(255) DEFAULT NULL,
   `add_time` int(11) DEFAULT NULL,
+  `post_code` int(8) DEFAULT '0',
+  `telephone` int(11) DEFAULT '0',
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
 # Data for table "my_address"
+#
+
+
+#
+# Structure for table "my_address_place"
+#
+
+DROP TABLE IF EXISTS `my_address_place`;
+CREATE TABLE `my_address_place` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `place_name` varchar(255) DEFAULT NULL COMMENT 'name',
+  `parent_id` int(11) DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='地址具体信息表';
+
+#
+# Data for table "my_address_place"
 #
 
 
@@ -89,13 +108,19 @@ CREATE TABLE `my_admin` (
 
 DROP TABLE IF EXISTS `my_order`;
 CREATE TABLE `my_order` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(3) DEFAULT NULL COMMENT '0是未付款1是付款未发货2是付款已发货3是付款已签收',
   `much` decimal(10,2) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `message_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  `add_time` int(11) DEFAULT '0',
+  `pay_time` int(11) DEFAULT '0',
+  `province` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `zone` varchar(100) DEFAULT NULL,
+  `specific_place` varchar(100) DEFAULT NULL,
+  `postcode` int(8) DEFAULT '0',
+  `telephone` int(11) DEFAULT '0',
+  PRIMARY KEY (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #
