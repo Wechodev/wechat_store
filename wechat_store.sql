@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.53)
-# Date: 2017-06-22 19:21:40
+# Date: 2017-06-28 15:10:06
 # Generator: MySQL-Front 6.0  (Build 1.116)
 
 
@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `my_active_form`;
 CREATE TABLE `my_active_form` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `low_price` decimal(10,2) DEFAULT NULL,
+  `low_price` decimal(10,2) DEFAULT NULL COMMENT '最低价为多少',
   `describe` varchar(255) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `place` varchar(255) DEFAULT NULL,
@@ -156,10 +156,11 @@ CREATE TABLE `my_product` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `sales` int(11) DEFAULT NULL,
+  `sales` int(11) DEFAULT NULL COMMENT '售卖量',
   `photo` varchar(255) DEFAULT NULL,
   `describe` varchar(255) DEFAULT NULL,
-  `big_photo` varchar(255) DEFAULT NULL,
+  `big_photo` varchar(255) DEFAULT NULL COMMENT '大的展示图',
+  `stock` int(11) DEFAULT '0' COMMENT '库存',
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -191,10 +192,10 @@ CREATE TABLE `my_type` (
 DROP TABLE IF EXISTS `my_users`;
 CREATE TABLE `my_users` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `openid` char(29) DEFAULT NULL,
+  `openid` char(29) DEFAULT NULL COMMENT 'WeChat的openid',
   `nick_name` varchar(255) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
-  `join_time` int(11) DEFAULT NULL,
+  `join_time` int(11) DEFAULT NULL COMMENT '加入时间',
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
