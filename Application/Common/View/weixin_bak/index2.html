@@ -1,0 +1,59 @@
+<!-- <script type="text/javascript">
+function insertWeixinOpenid(wx_info){
+	_ajax("admin.php?c=Weixin/WxBrowse&a=wx_browse_save&is_ajax=1",wx_info,function(data){
+		
+	},"");
+}
+</script>
+<?php  
+	if(is_weixin())
+	{
+		if(!session('?wx_user'))
+		{
+			//session("wx_url_jump",curPageURL());
+			
+		    if($_GET['code']!=""&&$_GET['state']!=""){
+				include 'sxl/Common/View/weixin/oauth.html';
+			}else{
+				$APPID='wx74ce7967dcbc0a48';
+				$REDIRECT_URI='http://www.sxwskj.com';
+				//$REDIRECT_URI=curPageURL();
+				//$scope='snsapi_base';
+				$scope='snsapi_userinfo';//需要授权
+				$state='123';
+				$url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$APPID.'&redirect_uri='.urlencode($REDIRECT_URI).'&response_type=code&scope='.$scope.'&state='.$state.'#wechat_redirect';
+				header("Location:".$url);
+			}
+		}else{
+			echo '<script type="text/javascript">insertWeixinOpenid('.session('wx_user').');</script>';
+		}
+		
+	}
+	
+	function is_weixin(){ 
+		if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+			return true;
+		}	
+		return false;
+	}
+	
+	
+	function curPageURL() 
+	{
+		$pageURL = 'http';
+		if($_SERVER["HTTPS"] == "on") 
+		{
+			$pageURL .= "s";
+		}
+		$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80") 
+		{
+			$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+		} else {
+			$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
+	}
+?>
+
+ -->

@@ -12,6 +12,7 @@ use Common\Model\CommModel;
 class AdminModel extends CommModel
 {
 
+
     //登录验证
     public function verify($username,$password){
         $w=array();

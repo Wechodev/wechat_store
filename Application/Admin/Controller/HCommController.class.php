@@ -11,6 +11,7 @@ use Think\Controller;
 
 class HCommController extends Controller
 {
+    const ADMIN_PATH = __APP__.'/Admin';
     function __construct()
     {
         parent::__construct();

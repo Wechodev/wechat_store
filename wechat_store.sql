@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.53)
-# Date: 2017-06-28 15:10:06
+# Date: 2017-06-29 10:04:24
 # Generator: MySQL-Front 6.0  (Build 1.116)
 
 
@@ -93,14 +93,19 @@ CREATE TABLE `my_admin` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `salt` varchar(10) DEFAULT NULL,
+  `is_enabled` tinyint(3) DEFAULT '1',
+  `logintime` int(11) DEFAULT '0',
+  `login_ip` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "my_admin"
 #
 
+/*!40000 ALTER TABLE `my_admin` DISABLE KEYS */;
+INSERT INTO `my_admin` VALUES (1,'test123','4297f44b13955235245b2497399d7a93 ',1,1498644395,'127.0.0.1');
+/*!40000 ALTER TABLE `my_admin` ENABLE KEYS */;
 
 #
 # Structure for table "my_order"

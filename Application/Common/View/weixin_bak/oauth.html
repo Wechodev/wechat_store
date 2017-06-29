@@ -1,0 +1,55 @@
+﻿<?php
+$code = $_GET['code'];
+$state = $_GET['state'];
+//换成自己的接口信息
+$appid = 'wx74ce7967dcbc0a48';
+$appsecret = '918ef418ee59e718880f7fb1056dee24';
+if (empty($code)) $this->error('授权失败');
+$token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'&secret='.$appsecret.'&code='.$code.'&grant_type=authorization_code';
+$return_token=file_get_contents($token_url);
+$token = json_decode($return_token);
+if (isset($token->errcode)) {
+    //echo '<h1>错误：</h1>' . $token->errcode;
+	//echo '<br/><h2>错误信息：</h2>' . $token->errmsg;
+	//exit ();
+}
+$access_token_url = 'https://api.weixin.qq.com/sns/oauth2/refresh_token?appid='.$appid.'&grant_type=refresh_token&refresh_token='.$token->refresh_token;
+//转成对象
+$refresh_token=file_get_contents($access_token_url);
+$access_token = json_decode($refresh_token);
+if (isset($access_token->errcode)) {
+    //echo '<h1>错误：</h1>'.$access_token->errcode;
+    //echo '<br/><h2>错误信息：</h2>'.$access_token->errmsg;
+	//echo var_dump($access_token);
+    //exit;
+}
+$user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token->access_token.'&openid='.$access_token->openid.'&lang=zh_CN';
+$userinfo_json=file_get_contents($user_info_url);
+
+//已结在后台设置
+//session("wx_is_login",true);
+//转成对象
+//$user_info = json_decode(file_get_contents($user_info_url));
+//if (isset($user_info->errcode)) {
+    //echo '<h1>错误：</h1>'.$user_info->errcode;
+    //echo '<br/><h2>错误信息：</h2>'.$user_info->errmsg;
+    //exit;
+//}
+
+//$weixin_id=$user_info->openid;
+//打印用户信息
+//echo '<pre>';
+//print_r($user_info);
+//echo '用户id:'.$user_info->openid.'<br/>';
+//echo '昵称:'.$user_info->nickname.'<br/>';
+//echo '性别:'.($user_info->sex==1?'男':'女').'<br/>';
+//echo '省份:'.$user_info->province.'<br/>';
+//echo '城市:'.$user_info->city.'<br/>';
+//echo '头像:'.$user_info->headimgurl.'<br/>';
+
+//echo '</pre>';
+?>
+
+<script type="text/javascript">
+insertWeixinOpenid(<?php echo $userinfo_json ?>);
+</script>

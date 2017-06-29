@@ -1,0 +1,104 @@
+<style type="text/css">
+	.select_area{padding:5px 8px 0px 8px; height:auto; width:400px; overflow:hidden;}
+	.select_area #dialog_s{ height:30px; line-height:30px;}
+	.select_area #dialog_s span{ float:left; width:200px; height:28px; line-height:28px; border:#FF9900 1px dashed; padding-left:3px; overflow:hidden;}
+	.select_area #dialog_s a{float:right; margin-top:3px; height:25px; line-height:25px; width:80px; text-align:center; margin-right:5px; background-color:#CCCCCC; color:#FFFFFF;}
+	.select_area #submit_d{ height:25px; line-height:25px; text-align:center; margin-top:5px;}
+	.blk{ width:400px;font-size:12px;}
+	.blk .main{background:#fff;font-size:12px;}
+	.blk .main dl{zoom:1;overflow:hidden; width:396px;}
+	.blk .main dl dt{height:40px; line-height:40px; padding:0 8px 8px 8px; font-size:13px; font-weight:800;}
+	.blk .main dl dd{ height:auto; overflow:hidden;}
+	.blk .main dl dd ul{ padding-bottom:8px;}
+	.blk .main dl dd ul li{float:left; padding:0px 4px; height:20px; line-height:10px; margin:2px 4px;}
+	.blk .main dl dd ul li a{color:#333;display:block;}
+	.blk .main dl dd ul li.curr a{color:#2C4D7E; font-weight:800;}
+	.blk .main dl dd ul li a:hover{color:#FF0000;font-size:12px; text-decoration:underline;}
+</style>
+
+<div class="select_area">
+	<input type="hidden" id="area_ids" />
+    <input type="hidden" id="area_texts" />
+	<!--<div id="dialog_s"><span id="area_texts">请选择地区</span><a href="javascript:;" id="reset_area">重新选择</a><a href="javascript:;" onclick="{$callback_function}($('#area_ids').val(),$('#area_texts').html())" >确认选择</a></div>
+    <br />-->
+    <div id="regionblk" class="blk">
+        <div class="main">
+            <dl>
+               <dt id="region_dt"><strong id="region_dt_s">选择省份</strong><a href="javascript:;" id="reset_area" style="float:right">重选</a></dt>
+                <dd id="region_dd">
+                    <ul>
+                        <foreach name="regions[0]" item="v" key="k">
+                        	<li><a href="javascript:;" onclick="ajax_region({$v[id]},'{$v[name]}','{$v[level]}',this)">{$v[name]}</a></li>
+                        </foreach>
+                    </ul>
+                </dd>
+                <dd id="region_load" style="display:none">
+                	<div class="jzz"><img src="__HOMERES__/images/loading.gif" align="absmiddle" /><span>努力加载中...</span></div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	//省份选择加载ajax
+	var _reg_region=new Array();
+	var clevel={$type=="home"?2:3};
+	function ajax_region(regionid,regionname,level,obj){
+		_reg_region[level]={id:regionid,name:regionname}
+		$('#area_texts').val("");
+		var area_ids="";
+		var area_texts="";
+		for(var key in _reg_region){
+			area_ids+=_reg_region[key].id+",";
+			area_texts+=_reg_region[key].name+",";
+	    }		
+		
+		$('#area_ids').val(area_ids);
+		$('#area_texts').val(area_texts);
+		if(level<clevel){
+			var cx={upid:regionid}
+			_ajax("index.php?c=Index&a=ajaxRegions",cx,function(data){
+				if(data.length>0){
+					var s='<ul>';
+					for(var i=0;i<data.length;i++){
+						s+='<li><a href="javascript:;" onclick="ajax_region('+data[i].id+',\''+data[i].name+'\','+data[i].level+',this)">'+data[i].name+'</a></li>';
+					}
+					s+='</ul>';
+					$('#region_dd').html(s);
+					if(level==1){
+						$('#region_dt_s').html("请选择城市");
+					}else if(level==2){
+						$('#region_dt_s').html("请选择县区");
+					}	
+				}else{
+					{$callback_function}($('#area_ids').val(),$('#area_texts').val());
+				}
+			});
+		}else{
+			{$callback_function}($('#area_ids').val(),$('#area_texts').val());
+		}
+		$("#region_dd>ul>li").removeClass("curr");
+		$(obj.parentNode).addClass("curr");
+	}
+	
+	$("#reset_area").click(function(){
+		$('#area_texts').val("");
+		$('#area_ids').val("");
+		_reg_region=new Array();
+		var cx={upid:0}
+		_ajax("index.php?c=Index&a=ajaxRegions",cx,function(data){
+			if(data.length>0){
+				var s='<ul>';
+				for(var i=0;i<data.length;i++){
+					s+='<li><a href="javascript:;" onclick="ajax_region('+data[i].id+',\''+data[i].name+'\','+data[i].level+',this)">'+data[i].name+'</a></li>';
+				}
+				s+='</ul>';
+				$('#region_dd').html(s);
+				$('#region_dt_s').html("请选择省份");
+			}
+		});
+	});
+
+	
+</script>

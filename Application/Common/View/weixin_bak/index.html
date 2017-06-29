@@ -1,0 +1,74 @@
+<!-- <script type="text/javascript">
+function insertWeixinOpenid(wx_info){
+	_ajax("admin.php?c=Weixin/WxBrowse&a=wx_browse_save&is_ajax=1",wx_info,function(data){
+		  if(data.error==1){
+			  <?php  
+					if(session('?wx_relogin')){
+						session('wx_relogin'，null);
+						getWx_shouquan('snsapi_userinfo');
+					}
+			?>
+		}
+	},"");
+}
+</script>
+<?php  
+	if($_GET['code']!=""&&$_GET['state']!=""){
+			include 'sxl/Common/View/weixin/oauth.html';
+	}
+	if(is_weixin())
+	{
+		if(!session('?wx_is_login')){
+			getWx_shouquan();
+		}else{
+			if(session("?wx_url_jump")&&session("?wx_is_login")&&!session('?wx_relogin'))
+			{
+				$jump=session("wx_url_jump");
+				session("wx_url_jump",null);
+				//echo '<script type="text/javascript">alert("jump:'.$jump.'")</script>';
+				echo '<script type="text/javascript">location.href="'.$jump.'"</script>';
+			}
+			if(session ( '?wx_user')){
+				echo '<script type="text/javascript">insertWeixinOpenid('.session('wx_user').');</script>';
+			}
+		}
+		
+	}
+	
+	
+	function is_weixin(){ 
+		if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+			return true;
+		}	
+		return false;
+	}
+	function getWx_shouquan($scope='snsapi_base'){
+		session("wx_is_login",null);
+		session("wx_url_jump",curPageURL());
+		$APPID='wx74ce7967dcbc0a48';
+		$REDIRECT_URI='http://www.sxwskj.com';
+		//$REDIRECT_URI=curPageURL();
+		$state='sxwskj';
+		$url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$APPID.'&redirect_uri='.urlencode($REDIRECT_URI).'&response_type=code&scope='.$scope.'&state='.$state.'#wechat_redirect';
+		header("Location:".$url);	
+	}	
+	
+	function curPageURL() 
+	{
+		$pageURL = 'http';
+		if($_SERVER["HTTPS"] == "on") 
+		{
+			$pageURL .= "s";
+		}
+		$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80") 
+		{
+			$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+		} else {
+			$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
+	}
+?>
+
+ -->

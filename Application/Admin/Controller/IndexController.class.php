@@ -18,8 +18,6 @@ class IndexController extends HCommController {
 
 
     public function indexAction(){
-
-
         $this->display();
     }
 

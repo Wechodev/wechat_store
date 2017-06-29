@@ -53,13 +53,13 @@ return  array(
     'DEFAULT_FILTER'        =>  'htmlspecialchars', // 默认参数过滤方法 用于I函数...
 
     /* 数据库设置 */
-    'DB_TYPE'               =>  '',     // 数据库类型
-    'DB_HOST'               =>  '', // 服务器地址
-    'DB_NAME'               =>  '',          // 数据库名
-    'DB_USER'               =>  '',      // 用户名
-    'DB_PWD'                =>  '',          // 密码
-    'DB_PORT'               =>  '',        // 端口
-    'DB_PREFIX'             =>  '',    // 数据库表前缀
+    'DB_TYPE'               =>  'mysql',     // 数据库类型
+    'DB_HOST'               =>  'localhost', // 服务器地址
+    'DB_NAME'               =>  'wechat_store',          // 数据库名
+    'DB_USER'               =>  'root',      // 用户名
+    'DB_PWD'                =>  'root',          // 密码
+    'DB_PORT'               =>  '3306',        // 端口
+    'DB_PREFIX'             =>  'my_',    // 数据库表前缀
     'DB_PARAMS'          	=>  array(), // 数据库连接参数    
     'DB_DEBUG'  			=>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
     'DB_FIELDS_CACHE'       =>  true,        // 启用字段缓存
@@ -141,7 +141,7 @@ return  array(
     'URL_HTML_SUFFIX'       =>  'html',  // URL伪静态后缀设置
     'URL_DENY_SUFFIX'       =>  'ico|png|gif|jpg', // URL禁止访问的后缀设置
     'URL_PARAMS_BIND'       =>  true, // URL变量绑定到Action方法参数
-    'URL_PARAMS_BIND_TYPE'  =>  0, // URL变量绑定的类型 0 按变量名绑定 1 按变量顺序绑定
+    'URL_PARAMS_BIND_TYPE'  =>  1, // URL变量绑定的类型 0 按变量名绑定 1 按变量顺序绑定
     'URL_PARAMS_FILTER'     =>  false, // URL变量绑定过滤
     'URL_PARAMS_FILTER_TYPE'=>  '', // URL变量绑定过滤方法 如果为空 调用DEFAULT_FILTER
     'URL_ROUTER_ON'         =>  false,   // 是否开启URL路由

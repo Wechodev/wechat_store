@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,13 +6,13 @@
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="__ADMINRES__/img/favicon.png">
+    <link rel="shortcut icon" href="/Public/admin/img/favicon.png">
     <title>登录——后台管理系统</title>
-    <link href="__ADMINRES__/css/mycss.css" rel="stylesheet">
+    <link href="/Public/admin/css/mycss.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
-    <link href="__ADMINRES__/css/bootstrap.min.css" rel="stylesheet">
-    <link href="__ADMINRES__/css/bootstrap-reset.css" rel="stylesheet">
-    <script type="text/javascript" src="__ADMINRES__/js/jquery.min.js"></script>
+    <link href="/Public/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Public/admin/css/bootstrap-reset.css" rel="stylesheet">
+    <script type="text/javascript" src="/Public/admin/js/jquery.min.js"></script>
     <script>
         //登录-回车事件
         $(function(){
@@ -33,7 +33,7 @@
     <!--登录-->
     <div class="border_2_919191 mar_auto bord_ra_12 w960 " style="margin-top:160px;">
         <div class="center mt70 mb100">
-            <form action="__APP__/Admin/Login/login" method="post" name="form" id="form">
+            <form action="/index.php/Admin/Login/login" method="post" name="form" id="form">
             <span class="f36  col_464646 lh70">神灯管理系统</span>
             <div class="mt40"><span class="f18 lh40 col_464646">账号&nbsp;&nbsp;</span><input class="h40 w228 lh40" name="username" type="text"/></div>
             <div class="mt15"><span  class="f18 lh40 col_464646">密码&nbsp;&nbsp;</span><input  class="h40 w228 lh40" id="pass" name="password" type="password"/></div>
